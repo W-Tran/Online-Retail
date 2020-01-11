@@ -8,7 +8,7 @@ The notebook shows that clustering customers based on their RFM isn't able to gr
 
 - Customers were clustered based on their first year transactions whilst the segmentation was evaluated based on their second year transactions.
 - Other features could also be added to the clustering feature set depending on what retailers believe to be important when segmenting their customers. For example, a similar segmentation to the RFM clustering could be achieved when adding recency/frequency statistics to the monetary aggregate features. This will recreate the banding seen in the RFM clustering RF plot.
-- Different clustering algorithms and/or number of clusters could also be experimented with to further segment customer bases into groups that suit a certain retail better.
+- Different clustering algorithms and/or number of clusters could also be experimented with to further segment the customer base into groups that suit a certain retail better.
 
 <p align="center">
   <img src="data/figures/monetary_cluster_rf.png" width="400">
