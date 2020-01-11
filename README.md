@@ -1,6 +1,6 @@
 # Customer Segmentation
 
-An analysis of 2 years of transaction history from a real UK based online retail. Both years of the dataset can be found on the UCI Machine Learning Repository ([first year](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II), [second year](https://archive.ics.uci.edu/ml/datasets/Online+Retail)).
+An analysis of 2 years of transaction history data from a real UK based online retail. Both years of the dataset can be found on the UCI Machine Learning Repository ([first year](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II), [second year](https://archive.ics.uci.edu/ml/datasets/Online+Retail)).
 
 The notebook shows that clustering customers based on their RFM isn't able to group together high second year spenders as well as simply clustering on monetary daily aggregate statistics such as Mean/Min/Max/Sum/StDev purchase amount per transaction day (multiple purchases on the same day are grouped together into 1 transaction).
 
