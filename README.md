@@ -1,4 +1,4 @@
-# 1. Customer Segmentation
+# Customer Segmentation
 
 An analysis of 2 years of transaction history from a real UK based online retail. Both years of the dataset can be found on the UCI Machine Learning Repository ([first year](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II), [second year](https://archive.ics.uci.edu/ml/datasets/Online+Retail)).
 
