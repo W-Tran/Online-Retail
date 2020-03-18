@@ -143,14 +143,14 @@ def evaluate_clusters(features, num_clusters, cluster_feats, scaler):
     labeled_rlv_centres = []
     rlv_centres = []
     for cluster_num in range(num_clusters):
-        labeled_rlv_centres.append((cluster_num, features[features['Cluster'] == cluster_num].SecondYearRLV.mean()))
+        labeled_rlv_centres.append((cluster_num, features[features['Cluster'] == cluster_num].SecondYearRLV.median()))
         rlv_centres.append(features[features['Cluster'] == cluster_num].SecondYearRLV.mean())
     diff = [abs(j - i) for i, j in zip(rlv_centres, rlv_centres[1:])]
 
     print(f"Cluster labels - 0 = Low value customer, {num_clusters} = High value customer")
     print(f"Silhouette Coefficient:"
           f" {silhouette_score(scaler.transform(features[cluster_feats]), features['Cluster'], metric='euclidean')}")
-    print(f"Average 2nd year RLV: {labeled_rlv_centres}")
+    print(f"Median 2nd year RLV: {labeled_rlv_centres}")
     print(f"Differences: {diff}")
     print("Value Counts:")
     print(features.Cluster.value_counts().sort_index())
