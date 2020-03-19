@@ -41,7 +41,6 @@ def log_transform_features(features, feats_to_transform):
     for feat in feats_to_transform:
         features[feat] = np.log1p(features[feat])
         features.rename(columns={feat: f'log(1+{feat})'}, inplace=True)
-
     return features
 
 
