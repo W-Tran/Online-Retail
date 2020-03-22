@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, PowerTransformer
 from sklearn.mixture import GaussianMixture
 from lifetimes.utils import summary_data_from_transaction_data
 from sklearn.metrics import silhouette_score
@@ -36,12 +36,21 @@ def get_money_aggregation_features(cohort_invoices):
     return aggregation_features
 
 
-def log_transform_features(features, feats_to_transform):
+def transform_features(features, feats_to_transform, transform="log"):
     features = features.copy()
-    for feat in feats_to_transform:
-        features[feat] = np.log1p(features[feat])
-        features.rename(columns={feat: f'log(1+{feat})'}, inplace=True)
-    return features
+    transformed_feat_names = []
+    if transform == "log":
+        for feat in feats_to_transform:
+            features[feat] = np.log1p(features[feat])
+            features.rename(columns={feat: f'log(1+{feat})'}, inplace=True)
+            transformed_feat_names.append(f'log(1+{feat})')
+    elif transform == "yjt":
+        yjt = PowerTransformer(method='yeo-johnson', standardize=False)
+        for feat in feats_to_transform:
+            features[feat] = yjt.fit_transform(features[feat].to_frame())
+            features.rename(columns={feat: f'yjt_{feat}'}, inplace=True)
+            transformed_feat_names.append(f'yjt_{feat}')
+    return features, transformed_feat_names
 
 
 def get_rfm_features(features, cohort_invoices):
