@@ -12,7 +12,7 @@ def get_money_aggregation_features(cohort_invoices):
     daily_customer_revenues = cohort_invoices.groupby(["CustomerID", pd.Grouper(key="InvoiceDate", freq="D")])[
         'Revenue'].sum().reset_index()
     aggregation_features = daily_customer_revenues.groupby('CustomerID')['Revenue'].agg([
-        'mean',
+        'median',  # 'mean',
         'std',
         'min',
         'max',
@@ -23,7 +23,7 @@ def get_money_aggregation_features(cohort_invoices):
     # Rename features
     aggregation_features.columns = [
         'CustomerID',
-        'MeanPurchaseValue',
+        'MedianPurchaseValue',  # 'MeanPurchaseValue',
         'StDevPurchaseValue',
         'MinPurchaseValue',
         'MaxPurchaseValue',
