@@ -19,4 +19,8 @@ The notebook shows that clustering customers based on their RFM isn't able to gr
 
 ## Installation
 
-Simply clone the repo and install all the dependencies listed in the requirements.txt file. All results and plots can be reproduced using the clustering_daily.ipynb notebook.
+Simply clone the repo and install all dependencies listed in the requirements.txt file to an environment of your choice.
+
+## Usage
+
+All results and plots can be reproduced using the clustering_daily.ipynb notebook.
