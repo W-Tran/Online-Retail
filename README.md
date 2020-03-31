@@ -7,15 +7,15 @@
 <p align="center"><img src="data/figures/typical_customer.png" width=800></p>
 <p align="center"><img src="data/figures/pareto.png" width=400></p>
 
-An analysis of 2 years of transaction history data from a real UK based online retail. Both years of the dataset can be found on the UCI Machine Learning Repository ([first year](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II), [second year](https://archive.ics.uci.edu/ml/datasets/Online+Retail)).
+An analysis of 2 years of transaction history data from a real UK based online retailer. Both years of the dataset can be found on the UCI Machine Learning Repository ([first year](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II), [second year](https://archive.ics.uci.edu/ml/datasets/Online+Retail)).
 
-The notebook shows that clustering customers based on their RFM isn't able to group together high second year spenders as well as simply clustering on monetary daily aggregate statistics such as Mean/Min/Max/Sum/StDev revenue per transaction day (multiple purchases on the same day were grouped together into 1 transaction).
+The analysis shows that highly profitable customer value groups can be identified by segmenting customers based on their first year purchasing behaviour. The highest value customer groups ended up making the largest number of high value purchases in their second year of purchasing. Attempting to segment customers into value groups based on their RFM statistics resulted in notable second year outliers which were customers identified to be low value but ended up purchasing a large amount in their second year. Using a GMM allows for a soft segmentation where customers are assigned cluster label probabilities which is useful for distinguishing between customers who are most likely to be high value. 
 
 **Notes/Future Work**
 
-- Customers were clustered based on their first year transactions whilst the segmentation was evaluated based on their second year transactions.
-- Other features could also be added to the clustering feature set depending on what retailers believe to be important when segmenting their customers. For example a similar segmentation to the RFM clustering could be achieved by adding recency/frequency statistics to the aggregate features. This will recreate the banding seen in the RFM clustering RF plot.
-- Other clustering algorithms could be experimented with to produce different segmentation geometry that might cluster the customer base into more useful groups.
+- Customers were segmented based on their first year transactions whilst the segmentation was evaluated based on their second year transactions.
+- Other features could be used to segment the customers depending on the marketing strategy and what customer behaviour is trying to be understood. Due to limitations of the dataset, purchasing behaviour was the only features that could be produced.
+- Other clustering algorithms could be experimented with to produce different segmentation geometry that might cluster the customer base into more useful groups. 
 
 ## Installation
 
