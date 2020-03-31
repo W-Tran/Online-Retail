@@ -30,7 +30,7 @@ def get_money_aggregation_features(cohort_invoices):
         'SumPurchaseValue',
         'SizePurchaseValue',
     ]
-    # Customers who purchased more than once in the first year
+    # Customers with less than 3 purchases will have NaN for StDevPurchaseValue
     aggregation_features.dropna(inplace=True)
 
     return aggregation_features
