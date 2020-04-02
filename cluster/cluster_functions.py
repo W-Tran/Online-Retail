@@ -195,7 +195,7 @@ def evaluate_clusters(cluster_features, num_clusters):
     print(cluster_features['Cluster'].value_counts().sort_index())
 
 
-def select_best_num_components(features, cluster_features):
+def select_best_gmm(cluster_features):
     lowest_bic = np.infty
     bic = []
     n_components_range = range(1, 7)
@@ -206,12 +206,12 @@ def select_best_num_components(features, cluster_features):
             gmm = GaussianMixture(
                 n_components=n_components,
                 covariance_type=cv_type,
-                n_init=25,
-                max_iter=200
+                n_init=50,
+                max_iter=250
             )
-            gmm.fit(features[cluster_features])
-            bic.append(gmm.bic(features[cluster_features]))
+            gmm.fit(cluster_features)
+            bic.append(gmm.bic(cluster_features))
             if bic[-1] < lowest_bic:
                 lowest_bic = bic[-1]
                 best_gmm = gmm
-    return gmm.n_components
+    return best_gmm
