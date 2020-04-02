@@ -11,6 +11,8 @@ An analysis of 2 years of transaction history data from a real UK based online r
 
 The analysis shows that highly profitable customer value groups can be identified by segmenting customers based on their first year purchasing behaviour. The highest value customer groups ended up making the largest number of high value purchases in their second year of purchasing. Attempting to segment customers into value groups based on their RFM statistics resulted in notable second year outliers which were customers identified to be low value but ended up purchasing a large amount in their second year. Using a GMM allows for a soft segmentation where customers are assigned cluster label probabilities which is useful for distinguishing between customers who are most likely to be high value. 
 
+Segmentation was also done with an expanded aggreation feature set and allowing the GMM to perform model selection to select the best number of clusters. This takes the guess work out of selecting the best number of clusters. 
+
 **Notes/Future Work**
 
 - Customers were segmented based on their first year transactions whilst the segmentation was evaluated based on their second year transactions.
@@ -23,4 +25,4 @@ Simply clone the repo and install all dependencies listed in the requirements.tx
 
 ## Usage
 
-All results and plots can be reproduced using the clustering_daily.ipynb notebook.
+All results and plots can be reproduced using the clustering_daily.ipynb notebook. GMM with model selection analysis and intepretation of the model selected clusters can be found in the gmm_with_model_selection.ipynb notebook.
