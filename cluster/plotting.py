@@ -9,15 +9,10 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 
 
-def cluster_elbow_method(features, cluster_feats, scaler='mm'):
+def cluster_elbow_method(cluster_features):
     sse = []
-    if scaler == 'mm':
-        scaler = MinMaxScaler()
-    elif scaler == 'normal':
-        scaler = StandardScaler()
-
     for k in range(1, 10):
-        kmeans = KMeans(n_clusters=k, n_init=200, max_iter=1000).fit(scaler.fit_transform(features[cluster_feats]))
+        kmeans = KMeans(n_clusters=k, n_init=200, max_iter=1000).fit(cluster_features)
         sse.append(kmeans.inertia_)
 
     plt.plot(list(range(1, 10)), sse)
@@ -25,7 +20,11 @@ def cluster_elbow_method(features, cluster_feats, scaler='mm'):
     plt.ylabel("Intertia")
 
 
-def cluster_rf_plot(features):
+def cluster_rf_plot(cluster_features, features):
+    if "recency" not in cluster_features:
+        cluster_features['recency'] = features['recency'].values
+    if "frequency" not in cluster_features:
+        cluster_features['frequency'] = features['frequency'].values
     fig = plt.figure(figsize=(15, 8))
     ax = fig.add_subplot(111)
     sns.scatterplot(
@@ -36,23 +35,26 @@ def cluster_rf_plot(features):
         palette='rainbow',
         sizes=(0, 1000),
         alpha=0.8,
-        data=features,
+        data=cluster_features,
         ax=ax
     )
     ax.grid(alpha=0.2)
     ax.set_facecolor("snow")
 
 
-def cluster_pca_plot(features, cluster_feats, scaler, sorted_cluster_centers):
+def cluster_pca_plot(cluster_features, cluster_centers, scaled=True):
+    cluster_centers = cluster_centers.copy()
+    cluster_feature_values = cluster_features.iloc[:, :-2].copy()
+    if not scaled:
+        scaler = StandardScaler()
+        cluster_feature_values = scaler.fit_transform(cluster_feature_values)
+        cluster_centers = scaler.transform(cluster_centers)
     pca = PCA(n_components=2)
-    scaled_cluster_feats = scaler.transform(features[cluster_feats])
-    pca_cluster_feats = pca.fit_transform(scaled_cluster_feats)
-
-    pca_cluster_feats_df = pd.DataFrame(np.column_stack((pca_cluster_feats, features['Cluster'].values)),
-                                        columns=['PC1', 'PC2', 'Cluster'])
-    pca_cluster_feats_df['Cluster'] = pca_cluster_feats_df['Cluster'].astype(int)
-    pca_cluster_feats_df['SecondYearRLV'] = features['SecondYearRLV']
-    pca_cluster_feats_df['CustomerID'] = features['CustomerID']
+    pca_components = pca.fit_transform(cluster_feature_values)
+    pca_components_df = pd.DataFrame(np.column_stack((pca_components, cluster_features['Cluster'].values)),
+                                     columns=['PC1', 'PC2', 'Cluster'])
+    pca_components_df['Cluster'] = pca_components_df['Cluster'].astype(int)
+    pca_components_df['SecondYearRLV'] = cluster_features['SecondYearRLV']
 
     print(f"Explained variance ratio: {pca.explained_variance_ratio_}")
     print(f"Total explained variance: {pca.explained_variance_ratio_[0] + pca.explained_variance_ratio_[1]}")
@@ -66,49 +68,20 @@ def cluster_pca_plot(features, cluster_feats, scaler, sorted_cluster_centers):
         size='SecondYearRLV',
         palette='rainbow',
         sizes=(0, 1000),
-        data=pca_cluster_feats_df,
+        data=pca_components_df,
         ax=ax
     )
     ax.grid(alpha=0.2)
     ax.set_facecolor("snow")
     plt.scatter(
-        pca.transform(sorted_cluster_centers)[:, 0],
-        pca.transform(sorted_cluster_centers)[:, 1],
+        pca.transform(cluster_centers)[:, 0],
+        pca.transform(cluster_centers)[:, 1],
         marker='x',
         color='k',
         s=100,
     )
 
     return pca
-
-
-def cluster_tsne_plot(features, cluster_feats, scaler, perplexity=30, n_iter=1000):
-    tsne = TSNE(n_components=2, perplexity=perplexity, n_iter=n_iter)
-    scaled_cluster_feats = scaler.transform(features[cluster_feats])
-    tsne_cluster_feats = tsne.fit_transform(scaled_cluster_feats)
-
-    tsne_cluster_feats_df = pd.DataFrame(np.column_stack((tsne_cluster_feats, features['Cluster'].values)),
-                                         columns=['Component 1', 'Component 2', 'Cluster'])
-    tsne_cluster_feats_df['Cluster'] = tsne_cluster_feats_df['Cluster'].astype(int)
-    tsne_cluster_feats_df['SecondYearRLV'] = features['SecondYearRLV']
-    tsne_cluster_feats_df['CustomerID'] = features['CustomerID']
-
-    fig = plt.figure(figsize=(15, 8))
-    ax = fig.add_subplot(111)
-    sns.scatterplot(
-        'Component 1',
-        'Component 2',
-        hue='Cluster',
-        size='SecondYearRLV',
-        palette='rainbow',
-        sizes=(0, 1000),
-        data=tsne_cluster_feats_df,
-        ax=ax
-    )
-    ax.grid(alpha=0.2)
-    ax.set_facecolor("snow")
-
-    return tsne
 
 
 def pareto_plot(df, x=None, y=None, title=None, show_pct_y=False, pct_format='{0:.0%}'):
