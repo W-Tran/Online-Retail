@@ -195,7 +195,7 @@ def evaluate_clusters(cluster_features, num_clusters):
     print(cluster_features['Cluster'].value_counts().sort_index())
 
 
-def select_best_gmm(cluster_features):
+def select_best_gmm(cluster_features, state=2):
     lowest_bic = np.infty
     bic = []
     n_components_range = range(1, 7)
@@ -207,7 +207,8 @@ def select_best_gmm(cluster_features):
                 n_components=n_components,
                 covariance_type=cv_type,
                 n_init=50,
-                max_iter=250
+                max_iter=250,
+                random_state=state
             )
             gmm.fit(cluster_features)
             bic.append(gmm.bic(cluster_features))
