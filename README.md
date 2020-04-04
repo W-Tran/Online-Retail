@@ -9,9 +9,15 @@
 
 An analysis of 2 years of transaction history data from a real UK based online retailer. Both years of the dataset can be found on the UCI Machine Learning Repository ([first year](https://archive.ics.uci.edu/ml/datasets/Online+Retail+II), [second year](https://archive.ics.uci.edu/ml/datasets/Online+Retail)).
 
-The analysis shows that highly profitable customer value groups can be identified by segmenting customers based on their first year purchasing behaviour. The highest value customer groups ended up making the largest number of high value purchases in their second year of purchasing. Attempting to segment customers into value groups based on their RFM statistics resulted in notable second year outliers which were customers identified to be low value but ended up purchasing a large amount in their second year. Using a GMM allows for a soft segmentation where customers are assigned cluster label probabilities which is useful for distinguishing between customers who are most likely to be high value. 
+The analysis shows that highly profitable customer groups can be identified by segmenting customers based on their first year purchasing behaviour. The highest value customer groups ended up making the largest number of high value purchases out of all of the second year purchases. Attempting to segment customers into value groups based on their RFM statistics resulted in notable second year outliers which were customers identified to be low value but ended up purchasing a large amount in their second year. Using a GMM to perform clustering allowed for more versatile cluster geometries which captured different customer segments. 
 
-GMM Segmentation with model selection was also attempted where the model was allowed to select the best number of clusters. This took the guess work out of selecting the best number of clusters and allowed for more unique customer segments to be discovered. 
+The key advantages of GMMs over KMeans are:
+
+1) Soft clustering (observations are assigned cluster probabilities) 
+2) More versatile cluster geometry (KMeans results in spherical clusters)
+3) Model selection (GMM can select the best number of clusters and cluster shape)
+
+GMM Segmentation with model selection was attempted in a separate notebook. This took the guess work out of selecting the number of clusters and resulted in more unique customer segments to be discovered. 
 
 **Notes/Future Work**
 
