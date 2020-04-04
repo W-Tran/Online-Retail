@@ -11,7 +11,7 @@ An analysis of 2 years of transaction history data from a real UK based online r
 
 The analysis shows that highly profitable customer value groups can be identified by segmenting customers based on their first year purchasing behaviour. The highest value customer groups ended up making the largest number of high value purchases in their second year of purchasing. Attempting to segment customers into value groups based on their RFM statistics resulted in notable second year outliers which were customers identified to be low value but ended up purchasing a large amount in their second year. Using a GMM allows for a soft segmentation where customers are assigned cluster label probabilities which is useful for distinguishing between customers who are most likely to be high value. 
 
-Segmentation was also attempted allowing the GMM to perform model selection to select the best number of clusters. This takes the guess work out of selecting the best number of clusters. 
+GMM Segmentation with model selection was also attempted where the model was allowed to select the best number of clusters. This took the guess work out of selecting the best number of clusters and allowed for more unique customer segments to be discovered. 
 
 **Notes/Future Work**
 
