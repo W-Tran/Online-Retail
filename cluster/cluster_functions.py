@@ -183,13 +183,13 @@ def evaluate_clusters(cluster_features, num_clusters):
     """
     cluster_rlv = []
     for cluster_num in range(num_clusters):
-        cluster_rlv.append(cluster_features[cluster_features['Cluster'] == cluster_num].SecondYearRLV.median())
+        cluster_rlv.append(cluster_features[cluster_features['Cluster'] == cluster_num].SecondYearRLV.mean())
     diff = [np.around(abs(j - i), 2) for i, j in zip(cluster_rlv, cluster_rlv[1:])]
 
     print(f"Cluster labels - 0 = Low value customer, {num_clusters - 1} = High value customer")
     print(f"Silhouette Coefficient:"
           f"{silhouette_score(cluster_features.iloc[:, :-1], cluster_features['Cluster'], metric='euclidean')}")
-    print(f"Median 2nd year RLV: {np.around(cluster_rlv, 3)}")
+    print(f"Mean 2nd year RLV: {np.around(cluster_rlv, 3)}")
     print(f"Differences: {diff}")
     print("Value Counts:")
     print(cluster_features['Cluster'].value_counts().sort_index())
