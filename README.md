@@ -9,7 +9,7 @@
 
 An analysis of 2 years of transaction history data from a real UK based online retailer. Both years of the dataset can be found on the UCI Machine Learning Repository ([first year](http://archive.ics.uci.edu/ml/datasets/Online+Retail+II), [second year](http://archive.ics.uci.edu/ml/datasets/Online+Retail)).
 
-The analysis shows that highly profitable customer groups can be identified by segmenting customers based on their first year purchasing behaviour. The highest value customer groups ended up making the largest number of high value purchases out of all of the second year purchases. Attempting to segment customers into value groups based on their RFM statistics resulted in notable second year outliers which were customers identified to be low value but ended up purchasing a large amount in their second year. Using a GMM to perform clustering allowed for more versatile cluster geometries which captured different customer segments. 
+The analysis shows that highly profitable customer groups can be identified by segmenting customers based on their first year purchasing behaviour. The highest value customer groups ended up making the largest number of high value purchases in the second year. Attempting to segment customers into value groups based on their RFM statistics resulted in notable second year outliers which were customers identified to be low value but ended up purchasing a large amount in their second year. Using a GMM to perform clustering allowed for more versatile cluster geometries which captured different customer segments. 
 
 The key advantages of GMMs over KMeans are:
 
